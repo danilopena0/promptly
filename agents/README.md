@@ -14,17 +14,21 @@ Or for global availability, copy to `~/.claude/agents/`.
 
 ## Available agents
 
-| Agent | Purpose | Tools |
-|-------|---------|-------|
-| **orchestrator** | Plans multi-agent workflows | Read-only |
-| **explorer** | Investigates existing code | Read-only |
-| **architect** | Designs implementation plans | Read-only |
-| **implementer** | Writes production code | Read/Write/Bash |
-| **tester** | Creates tests | Read/Write/Bash |
-| **reviewer** | Reviews code for issues | Read-only |
-| **principles-enforcer** | Checks SOLID, DRY, clean code | Read-only |
-| **optimizer** | Performance tuning | Read/Write/Bash |
-| **documenter** | Writes documentation | Read/Write |
+| Agent | Purpose | Tools | Model Tier |
+|-------|---------|-------|------------|
+| **orchestrator** | Plans multi-agent workflows | Read-only | Opus |
+| **explorer** | Investigates existing code | Read-only | Haiku |
+| **architect** | Designs implementation plans | Read-only | Opus |
+| **implementer** | Writes production code | Read/Write/Bash | Sonnet |
+| **tester** | Creates tests | Read/Write/Bash | Sonnet |
+| **reviewer** | Reviews code for issues | Read-only | Sonnet |
+| **principles-enforcer** | Checks SOLID, DRY, clean code | Read-only | Sonnet |
+| **optimizer** | Performance tuning | Read/Write/Bash | Sonnet |
+| **documenter** | Writes documentation | Read/Write | Sonnet |
+| **evaluator** | LLM-as-judge quality assessment | Read-only | Sonnet |
+| **security-reviewer** | OWASP security review | Read-only | Sonnet |
+| **debugger** | Investigates failures | Read-only | Sonnet |
+| **recovery** | Plans recovery from failures | Read-only | Sonnet |
 
 ## Usage
 
@@ -141,6 +145,35 @@ Modify the agent files if your stack differs.
 
 1. **Start with explorer** for non-trivial tasks to build shared understanding
 2. **Use checkpoints** in complex workflows to review before proceeding
-3. **Run reviewers in parallel** to save time
+3. **Run reviewers in parallel** to save time (reviewer + security-reviewer + principles-enforcer)
 4. **Use orchestrator** when you're not sure which agents to use
 5. **Keep context focused** - invoke fresh agents for distinct tasks rather than continuing long sessions
+6. **Use evaluator** before marking work complete to ensure quality
+7. **Use debugger and recovery** when things go wrong instead of improvising
+8. **Track progress** in SESSION_LOG.md for complex multi-session tasks
+
+## Cost Optimization
+
+Agents have recommended model tiers to balance cost and capability:
+
+- **Opus** (expensive): Complex reasoning - orchestrator, architect
+- **Sonnet** (balanced): Standard tasks - implementer, tester, reviewer, etc.
+- **Haiku** (cheap): Simple/frequent tasks - explorer
+
+Use the Plan-and-Execute pattern: plan with Opus, execute with Sonnet/Haiku.
+
+## Error Recovery
+
+When an agent fails or produces unexpected output:
+
+1. **STOP** - Don't proceed with dependent tasks
+2. **Assess** - Use debugger agent to investigate
+3. **Recover** - Use recovery agent to plan next steps
+4. **Document** - Log in SESSION_LOG.md for future reference
+
+## Claude 4.x Features
+
+All agents include Claude 4.x guidelines:
+- **Express uncertainty**: Say "I'm not certain" rather than guessing
+- **Incremental progress**: Complete one step at a time
+- **Context awareness**: Track remaining context, suggest session breaks

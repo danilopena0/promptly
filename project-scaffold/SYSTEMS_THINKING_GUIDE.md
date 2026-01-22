@@ -198,3 +198,147 @@ The system around the agent matters as much as the agent itself.
 
 Your development environment is now a first-class engineering artifact.
 Design it deliberately.
+
+## Cost Optimization Strategies
+
+As agent workflows scale, cost management becomes essential engineering.
+
+### Model Tier Strategy
+
+Use the right model for the job:
+
+| Model Tier | Use For | Agents |
+|------------|---------|--------|
+| **Opus** (expensive) | Complex reasoning, planning, architecture | orchestrator, architect |
+| **Sonnet** (balanced) | Standard tasks, implementation, review | implementer, tester, reviewer, evaluator |
+| **Haiku** (cheap) | High-frequency, simple tasks | explorer, quick checks |
+
+### The Plan-and-Execute Pattern
+
+Reduce costs by 80-90%:
+
+```
+1. PLAN (Opus): Create detailed execution plan
+   - One expensive call for strategy
+   - Output: Step-by-step instructions
+
+2. EXECUTE (Sonnet/Haiku): Follow the plan
+   - Multiple cheap calls for execution
+   - No reasoning about approach needed
+```
+
+### Caching Strategies
+
+**Session-level caching**:
+- Save exploration results to SESSION_LOG.md
+- Don't re-explore same code in same session
+- Reuse architectural decisions within session
+
+**Cross-session caching**:
+- Keep CLAUDE.md and ARCHITECTURE.md up to date
+- Document one-time research findings
+- Save common operation patterns
+
+### Token Optimization
+
+**Reduce input tokens**:
+- Load only relevant files, not entire directories
+- Use focused searches, not broad exploration
+- Summarize long files before including
+
+**Reduce output tokens**:
+- Use structured output formats (JSON)
+- Request concise responses for simple tasks
+- Avoid verbose explanations for routine operations
+
+### Cost-Conscious Workflow Patterns
+
+**Expensive (avoid)**:
+```
+explorer(opus) → architect(opus) → implementer(opus) → tester(opus)
+```
+
+**Optimized**:
+```
+explorer(haiku) → architect(opus) → implementer(sonnet) → tester(sonnet)
+```
+
+**Batch similar tasks**:
+```
+# Instead of 5 separate explorer calls:
+SINGLE explorer call: "Map these 5 modules: A, B, C, D, E"
+```
+
+### Monitoring and Budgeting
+
+Track per-session:
+- Total tokens used
+- Tokens per agent type
+- Cost per task completed
+
+Set alerts for:
+- Sessions exceeding token thresholds
+- Tasks that seem stuck (spinning tokens)
+- Repeated failed operations
+
+### When to Invest More
+
+Some tasks justify higher cost:
+- **Security reviews**: Use thorough model, don't skimp
+- **Architectural decisions**: Bad decisions cost more to fix
+- **Production deployments**: Extra verification is cheap insurance
+
+## Observability and Tracing
+
+### Why Observability Matters
+
+Agent workflows are harder to debug than traditional code:
+- Non-deterministic outputs
+- Context-dependent behavior
+- Failures may be subtle ("works but weird")
+
+### What to Track
+
+**Per-agent invocation**:
+- Timestamp
+- Agent name
+- Input summary (task/goal)
+- Output summary (result/status)
+- Token usage
+- Duration
+- Success/failure
+
+**Per-session**:
+- Total agents invoked
+- Decision points and outcomes
+- Errors and recoveries
+- Final state
+
+### SESSION_LOG.md
+
+Use the SESSION_LOG.md template to track:
+- Agent invocations
+- Decisions made
+- Progress checkpoints
+- Handoff context
+
+This enables:
+- Post-mortem analysis when things go wrong
+- Session recovery if context is lost
+- Pattern identification across sessions
+
+### Integration Points
+
+Consider integrating with:
+- **LangSmith**: Full observability platform
+- **Weights & Biases**: Experiment tracking
+- **Custom logging**: Write to structured log files
+
+### Debugging Workflows
+
+When something goes wrong:
+
+1. **Check SESSION_LOG.md** for what happened
+2. **Use debugger agent** to investigate
+3. **Use recovery agent** to plan next steps
+4. **Document findings** for future prevention
