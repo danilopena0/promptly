@@ -17,16 +17,18 @@ This workflow addresses three goals:
 
 ```
 promptly/
-├── LEARNINGS/                    # NEW: Learning journal
+├── LEARNINGS/                    # Learning journal
 │   ├── README.md                 # Index of learnings by topic
 │   ├── YYYY-MM-DD-topic.md      # Individual learning entries
 │   └── patterns/                 # Reusable patterns extracted
 │       ├── agent-design.md
 │       ├── prompt-engineering.md
 │       └── workflow-patterns.md
-├── CHANGELOG.md                  # NEW: What changed (for users)
-├── ITERATION_LOG.md              # NEW: Iteration-specific session log
-├── BEST_PRACTICES_PLAN.md        # Existing: Improvement roadmap
+├── METHOD.md                     # Development methodology & context engineering
+├── NAMING_CONVENTIONS.md         # File/folder naming standards
+├── CHANGELOG.md                  # What changed (for users)
+├── ITERATION_LOG.md              # Iteration-specific session log
+├── BEST_PRACTICES_PLAN.md        # Improvement roadmap
 └── ... (existing structure)
 ```
 
@@ -35,6 +37,8 @@ promptly/
 | File | Purpose | Audience |
 |------|---------|----------|
 | `LEARNINGS/` | Raw insights, experiments, discoveries | You (developer) |
+| `METHOD.md` | Development philosophy & context engineering | You + Claude Code |
+| `NAMING_CONVENTIONS.md` | File/folder naming standards | You + contributors |
 | `CHANGELOG.md` | User-facing "what's new" | Users of promptly |
 | `ITERATION_LOG.md` | Current iteration tracking | You + Claude Code |
 | `BEST_PRACTICES_PLAN.md` | Strategic roadmap | Reference |
@@ -259,6 +263,23 @@ When you see the same learning 3+ times, extract to a pattern file:
 - [ ] Clean commit history
 - [ ] Ready for next iteration
 
+### Periodic Review Checklist (Every 3-5 Iterations)
+
+These documents should evolve with the project. Review periodically:
+
+- [ ] **METHOD.md** - Does our methodology still reflect how we work?
+  - New context engineering techniques discovered?
+  - Approaches that proved ineffective?
+  - Industry best practices shifted?
+- [ ] **LEARNINGS/README.md** - Is the index current and navigable?
+  - Key insights section reflects top learnings?
+  - Chronological list up to date?
+  - Patterns properly extracted?
+- [ ] **NAMING_CONVENTIONS.md** - Are naming patterns working?
+  - New file types introduced?
+  - Conventions causing friction?
+- [ ] **BEST_PRACTICES_PLAN.md** - Roadmap aligned with current goals?
+
 ### Reset for Next Iteration
 
 1. Archive current ITERATION_LOG.md if keeping history:
@@ -378,7 +399,37 @@ This workflow complements your existing files:
 
 ---
 
+## Context Engineering Tips
+
+These principles (from [Anthropic's context engineering guide](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)) inform how we work:
+
+| Principle | Application in Promptly |
+|-----------|------------------------|
+| **Minimum viable context** | Load only what's needed; use file paths as identifiers |
+| **Calibrate the altitude** | Balance specificity and flexibility in agent prompts |
+| **Structured formatting** | Use XML tags and Markdown headers for clarity |
+| **Start minimal, iterate** | Add instructions based on observed failures |
+| **Minimize tool overlap** | Each agent has single, clear responsibility |
+| **Token efficiency** | Return compact information; avoid bloated outputs |
+| **Just-in-time retrieval** | Maintain identifiers, load details on demand |
+| **Compaction** | Summarize conversations approaching context limits |
+| **Structured note-taking** | CLAUDE.md, ITERATION_LOG.md survive resets |
+| **Sub-agent architecture** | Delegate to focused agents returning summaries |
+
+See [METHOD.md](./METHOD.md) for full methodology documentation.
+
+---
+
 ## Meta: Improving This Workflow
 
 This workflow itself should evolve. Capture learnings about the learning process in:
 `LEARNINGS/patterns/meta-workflow.md`
+
+---
+
+## References
+
+- [METHOD.md](./METHOD.md) - Development methodology & context engineering
+- [NAMING_CONVENTIONS.md](./NAMING_CONVENTIONS.md) - File/folder naming standards
+- [LEARNINGS/](./LEARNINGS/) - Knowledge base and patterns
+- [Anthropic: Effective Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)

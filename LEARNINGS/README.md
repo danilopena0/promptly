@@ -12,11 +12,18 @@
 ### Prompt Engineering
 - [Prompt Engineering Patterns](patterns/prompt-engineering.md)
 
+### Context Engineering
+- [METHOD.md](../METHOD.md) - Full methodology including context engineering principles
+- [Anthropic: Effective Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+
 ### Workflow
 - [Workflow Patterns](patterns/workflow-patterns.md)
 
 ### Meta (Learning about Learning)
 - [Meta-Workflow Patterns](patterns/meta-workflow.md)
+
+### Standards
+- [NAMING_CONVENTIONS.md](../NAMING_CONVENTIONS.md) - File/folder naming standards
 
 ---
 

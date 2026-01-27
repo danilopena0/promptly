@@ -249,6 +249,32 @@ See [project-scaffold/README.md](project-scaffold/README.md) for details.
   - Session Management (maintaining context)
   - Collaboration Patterns (AI as pair programmer)
 
+### Methodology & Standards
+
+- **[METHOD.md](METHOD.md)** - Development methodology and context engineering principles
+  - Core philosophy: "Do the simplest thing that works"
+  - Context engineering tips from [Anthropic's guide](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+  - Tool design principles
+  - Long-horizon task strategies
+
+- **[NAMING_CONVENTIONS.md](NAMING_CONVENTIONS.md)** - File and folder naming standards
+  - Directory and file naming patterns
+  - Git branch and commit conventions
+  - Language-specific conventions
+  - Anti-patterns to avoid
+
+- **[ITERATION_WORKFLOW.md](ITERATION_WORKFLOW.md)** - Structured iteration cycle
+  - Plan → Do → Capture → Checkpoint → Reflect
+  - Learning capture templates
+  - Periodic review checklists
+
+### Knowledge Base
+
+- **[LEARNINGS/](LEARNINGS/)** - Accumulated knowledge and patterns
+  - [patterns/agent-design.md](LEARNINGS/patterns/agent-design.md) - Agent design patterns
+  - [patterns/prompt-engineering.md](LEARNINGS/patterns/prompt-engineering.md) - Prompt engineering patterns
+  - [patterns/workflow-patterns.md](LEARNINGS/patterns/workflow-patterns.md) - Workflow patterns
+
 ---
 
 ## Project Structure After Integration
@@ -315,6 +341,9 @@ Or manually edit the "Tech stack" sections in:
 4. **Use orchestrator when unsure** - Let it plan the workflow for you
 5. **Commit at checkpoints** - Makes recovery easier if something goes wrong
 6. **Evaluate before merging** - Use the evaluator agent for quality gates
+7. **Capture learnings in real-time** - Document insights as they occur, not retrospectively
+8. **Review methodology periodically** - Update METHOD.md and LEARNINGS/ every 3-5 iterations
+9. **Follow naming conventions** - Consistent naming helps both humans and AI navigate the codebase
 
 ---
 
